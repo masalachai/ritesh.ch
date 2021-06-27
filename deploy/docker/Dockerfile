@@ -3,7 +3,11 @@ FROM rust:1.53.0-slim
 ARG APP_ENV
 ENV APP_ENV ${APP_ENV}
 ENV APP_HOME /app
-RUN mkdir $APP_HOME
+
+RUN mkdir $APP_HOME \
+	&& apt update --fix-missing \
+	&& apt install ca-certificates \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR $APP_HOME
 

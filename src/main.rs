@@ -121,7 +121,6 @@ async fn main() -> std::io::Result<()> {
         Err(_) => String::from("0.0.0.0:8080")
     };
 
-    std::env::set_var("RUST_LOG", "actix_web=debug");
     env_logger::init();
 
     HttpServer::new(|| {
