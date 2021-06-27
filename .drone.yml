@@ -8,7 +8,7 @@ platform:
 
 steps:
   - name: production
-    image: rust:1.53.0-slim
+    image: ayravat/rust:1.53.0-ci
     volumes:
       - name: ssh
         path: /root/.ssh
