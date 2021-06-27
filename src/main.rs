@@ -38,9 +38,10 @@ async fn contact(req: HttpRequest, form: web::Form<ContactForm>) -> Result<HttpR
     println!("{:?}", form);
     let captcha_secret = env::var("CAPTCHA_SECRET").unwrap();
     let smtp_host = env::var("SMTP_HOST").unwrap();
-    let smtp_username = env::var("SMTP_USERNAME").unwrap();
+    let smtp_username = env::var("SMTP_USER").unwrap();
     let smtp_password = env::var("SMTP_PASSWORD").unwrap();
     let smtp_recipient = env::var("SMTP_RECIPIENT").unwrap();
+    let smtp_from = env::var("SMTP_FROM").unwrap();
     //let smtp_recipient_name = env::var("SMTP_RECIPIENT_NAME").unwrap();
 
     let connection_info = req.connection_info();
@@ -55,7 +56,7 @@ async fn contact(req: HttpRequest, form: web::Form<ContactForm>) -> Result<HttpR
 
     if response.is_ok() {
         let email = Message::builder()
-            .from(form.sender_email.parse().unwrap())
+            .from(smtp_from.parse().unwrap())
             .reply_to(form.sender_email.parse().unwrap())
             .to(smtp_recipient.parse().unwrap())
             .subject("Message from the CV website")
