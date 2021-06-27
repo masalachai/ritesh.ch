@@ -48,7 +48,6 @@ async fn main() -> std::io::Result<()> {
                 web::resource("/")
                     .route(web::get().to(index))
             )
-            .route("/static/files/{name}.pdf", web::get().to(pdf))
             .route("/files/{name}.pdf", web::get().to(pdf))
             .route("/favicon.ico", web::get().to(favicon))
             .service(fs::Files::new("/static", "./static").prefer_utf8(true))
