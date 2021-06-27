@@ -1,0 +1,10 @@
+TYPE=rust
+SERVICE_NAME=ritesh.ch
+REPO=git@gitea@ayravat.com:chitlangi/ritesh.ch
+DEPLOYMENT_SERVER=ritesh.ch
+DEPLOYMENT_SERVER_USER=ritesh
+RESTART_COMMAND="sh deploy/run.sh restart"
+BUILD=cargo
+FORMAT=actix-web
+LINKED_FILES=""
+LINKED_DIRS="logs"

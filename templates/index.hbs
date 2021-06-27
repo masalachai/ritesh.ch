@@ -1,0 +1,549 @@
+<html>
+
+<head>
+	<title>{{name}} - Software Engineer</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+	<meta charset="utf-8">
+	<meta name="Description" CONTENT="Software Engineer, Location: Kuala Lumpur, Mumbai">
+	<link rel="preconnect" href="fonts.gstatic.com" crossorigin>
+	<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Raleway" crossorigin>
+	<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Pinyon+Script" crossorigin>
+	<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Slabo+27px" crossorigin>
+	<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Lato" crossorigin>
+	<link rel="preload" as="font" href="https://fonts.gstatic.com/s/lato/v17/S6uyw4BMUTPHjx4wXiWtFCc.woff2"
+		type="font/woff2" crossorigin>
+	<link rel="preload" as="font"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/fonts/fontawesome-webfont.woff2?v=4.6.1"
+		type="font/woff2" crossorigin>
+	<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css' crossorigin>
+	<link href='https://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css' crossorigin>
+	<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet" crossorigin>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" crossorigin>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<!-- <script src="lib/jqcloud.min.js"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script> -->
+
+	<script>
+		function sendMessage() {
+			event.preventDefault();
+
+			// $('#send-message').prop('disabled', true);
+			$.post("contact.php", $('#contact-form').serialize(), function (data) {
+				$('#contact-form').parent().html('<p>' + data.message + '</p>');
+				// $('#send-message').prop('disabled', false);
+			});
+		}
+
+		$(document).ready(function () {
+			$('.scroll-link').each(function () {
+				$(this).click(function () {
+					$('body').animate({
+						scrollTop: $(this.hash).offset().top
+					}, 'slow');
+					if ($.inArray(this.hash, ["#intro", "#personal", "#contact"])) {
+						$('li.project').show();
+						$('#skill-title').html('All Projects');
+					}
+				});
+			});
+
+			var clickHandler = function () {
+				var elem = $(this);
+
+				var filter = elem.attr('href').replace("#", "");
+				var skill = elem.html();
+				var exp = elem.data('exp');
+				var desc = elem.data('desc');
+
+				$('li.project').each(function () { $(this).hide(300); });
+				$('section#projects').show(300);
+				$('li.' + filter).each(function () { $(this).show(300); });
+				var title = skill + ' Projects';
+				if (exp !== undefined)
+					title += '<br/>' + exp;
+				if (desc !== undefined)
+					title += '<br/><div class="skill-desc">' + desc + '</div>';
+				$('#skill-title').html(title);
+
+				$('body').animate({
+					scrollTop: $('#projects').position().top
+				}, 'slow');
+			};
+
+			var showSkill = function () {
+				var elem = $(this);
+
+				var filter = elem.attr('href').replace("#", "");
+				var skill = elem.html();
+				var exp = elem.data('exp');
+				if (exp === undefined)
+					return;
+				//console.log(exp);
+				$('#skill-exp').html('<span class="skill-highlight">' + skill + '</span><br/><span class="exp-highlight">' + exp + '</span>');
+			};
+
+			$('a.clickable-skill').each(function () {
+				$(this).click(clickHandler);
+				$(this).mouseover(showSkill);
+				$(this).mouseleave(function () { $('#skill-exp').empty(); });
+			});
+
+			$('#contact-link').click(function () {
+				$('#contact').slideToggle(300);
+				$('body').animate({
+					scrollTop: 0
+				}, 'slow');
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<header>
+		<a title="Name" id="name-link" href="#intro" class="scroll-link">
+			<span class="name-header">{{name}}</span>
+		</a>
+		<span class="contact">
+			<a title="Home" id="personal-link" href="#intro" class="scroll-link">
+				<i class="fa fa-home" aria-hidden="true"></i>
+			</a>
+			<a title="My Projects" id="work-link" href="#projects" class="scroll-link">
+				<i class="fa fa-briefcase" aria-hidden="true"></i>
+			</a>
+			<!-- <a title="Message Me" id="contact-link" href="#contact" class="scroll-link">
+				<i class="fa fa-envelope" aria-hidden="true"></i>
+			</a> -->
+			<a title="Call Me" href="tel:{{phone}}">
+				<i class="fa fa-phone" aria-hidden="true"></i>
+			</a>
+			<a title="Github" href="https://github.com/masalachai">
+				<i class="fa fa-github" aria-hidden="true"></i>
+			</a>
+			<a title="Download CV" href="{{cv_link}}">
+				<i class="fa fa-download" aria-hidden="true"></i>
+			</a>
+		</span>
+	</header>
+	<section id="contact">
+		<div class="centered">
+			<div class="message-block">
+				<form id="contact-form">
+					<input type="text" name="your-email" id="your-email" class="contact-field"
+						placeholder="Your e-mail address"></input>
+					<textarea name="message" id="message" class="contact-field"
+						placeholder="Send me a message ..."></textarea>
+					<div class="g-recaptcha" data-sitekey="{{captcha_sitekey}}"></div>
+					<button class="btn btn-primary" id="send-message" onClick="javascript:sendMessage();">Send</button>
+				</form>
+			</div>
+		</div>
+	</section>
+	<section id="intro">
+		<div id="pic-container">
+			<span id="skill-exp"></span>
+		</div>
+		<div id="keywords">
+			<span class="skill-category">Programming</span>
+			<br />
+			<span class="skill-details">
+				<a href="#c" data-exp="5 Years"
+					data-desc="Comfortable with application development and tools for C and C++ with Linux and Windows APIs"
+					class="clickable-skill">C</a>
+				<a href="#cc" data-exp="5 Years"
+					data-desc="Comfortable with application development and tools for C and C++ with Linux and Windows APIs"
+					class="clickable-skill">C++</a>
+				<a href="#java" data-exp="8 Years"
+					data-desc="Several years of experience building reliable Java applications that have seen long-term production use"
+					class="clickable-skill">Java</a>
+				<a href="#cs" data-exp="7 Years"
+					data-desc="Several years of experience building reliable C# applications that have seen long-term production use"
+					class="clickable-skill">C#</a>
+				<a href="#php" data-exp="7 Years"
+					data-desc="Extensive experience with using PHP and the LAMP stack for web development and for miscellaneous scripting"
+					class="clickable-skill">PHP</a>
+				<a href="#ruby" data-exp="6 Years"
+					data-desc="Developed a significant number of web applications and services with Ruby on Rails that have been in production use for a long time"
+					class="clickable-skill">Ruby (Rails)</a>
+				<a href="#python" data-exp="3 Years"
+					data-desc="Developed a significant number of web applications and services with Python, Django and Flask that have been in production use for a long time"
+					class="clickable-skill">Python</a>
+				<a href="#javascript" data-exp="6 Years"
+					data-desc="Extensive use of Javascript and JS libraries in a large number of web applications"
+					class="clickable-skill">Javascript</a><br />
+				<a href="#html" data-exp="12 Years"
+					data-desc="Extensive use of HTML in a large number of web applications"
+					class="clickable-skill">HTML</a>
+				<a href="#css" data-exp="4 Years" data-desc="Extensive use of CSS in a large number of web applications"
+					class="clickable-skill">CSS</a>
+				<a href="#flutter" data-exp="1 Year"
+					data-desc="Some experience with building mobile applications with Flutter"
+					class="clickable-skill">Dart (Flutter)</a>
+				<a href="#objective-c" data-exp="1 Year"
+					data-desc="Some experience with building iOS apps with Objective-C on XCode"
+					class="clickable-skill">iOS (Objective-C)</a>
+				<a href="#android" data-exp="1 Year" data-desc="Some experience with building Android apps with Java"
+					class="clickable-skill">Android (Java)</a><br />
+				<a href="#perl" data-exp="2 Years"
+					data-desc="Some experience with using Perl for many maintenance and automation scripts"
+					class="clickable-skill">Perl</a>
+				<a href="#fs" data-exp="1 Year"
+					data-desc="Some experience with builing web apps with F# on the .NET Framework"
+					class="clickable-skill">F#</a>
+			</span>
+			<br />
+			<br />
+			<span class="skill-category">Databases</span>
+			<br />
+			<span class="skill-details">
+				<a href="#mssql" data-exp="7 Years"
+					data-desc="Extensive experience developing with MSSQL as a database, with several features like CLR stored procedures"
+					class="clickable-skill">MS SQL</a>
+				<a href="#pgsql" data-exp="5 Years"
+					data-desc="Extensive experience with developing and processing large amounts of data with PostgreSQL"
+					class="clickable-skill">PostgreSQL</a>
+				<a href="#mysql" data-exp="7 Years"
+					data-desc="Extensive experience with the LAMP stack and using MySQL as a database in web applications"
+					class="clickable-skill">MySQL</a>
+				<a href="#mongo" data-exp="1 Year"
+					data-desc="Some experience with using MongoDB as NoSQL database in several projects"
+					class="clickable-skill">MongoDB</a>
+				<a href="#oracle" data-exp="1 Year" data-desc="Extensive experience developing with the Oracle database"
+					class="clickable-skill">Oracle</a>
+			</span>
+			<br />
+			<br />
+			<span class="skill-category">Dev Ops</span>
+			<br />
+			<span class="skill-details">
+				<a href="#docker" data-exp="2 Years"
+					data-desc="Good experience with automating, containerizing and scaling applications with Docker for a wide variety of deployment configuratons and managing docker registries"
+					class="clickable-skill">Docker</a>
+				<a href="#kubernetes" data-exp="2 Years"
+					data-desc="Good experience with provisioning, managing and automating deployments to Kubernetes clusters"
+					class="clickable-skill">Kubernetes</a>
+				<a href="#gitlab-ci" data-exp="4 Years"
+					data-desc="Good experience with setting up self-hosted CI infrastructure and deployment pipelines with Drone CI"
+					class="clickable-skill">Drone CI</a>
+				<a href="#aws" data-exp="2 Years"
+					data-desc="Good experience with setting up networks (VPCs), VPNs, EC2 auto-scaling, object storage (S3), CDN (Cloudfront), Clusters (ECS and EKS), and several other AWS services"
+					class="clickable-skill">AWS</a>
+				<a href="#linux" data-exp="10 Years"
+					data-desc="Extensive experience with developing for Linux and managing Linux infrastructure for web and network services"
+					class="clickable-skill">Linux</a>
+				<a href="#bsd" data-exp="8 Years"
+					data-desc="Extensive experience with managing infrastructure for web and network services on BSD and other Unix-like operating systems"
+					class="clickable-skill">BSD</a>
+				<a href="#git" data-exp="5 Years"
+					data-desc="Good experience with using Git for development and automation of development processes"
+					class="clickable-skill">Git</a><br />
+				<a href="#keycloak" data-exp="1 Year"
+					data-desc="Good experience with using Keycloak for centralized authentication and authorization services"
+					class="clickable-skill">Keycloak</a>
+				<a href="#git" data-exp="3 Years"
+					data-desc="Extensive experience with using Gitea as a self-hosted repository and issue management solution and automated migration of large numbers of repositories from Github and Gitlab to Gitea"
+					class="clickable-skill">Gitea</a>
+				<a href="#apache" data-exp="4 Years"
+					data-desc="Significant experience with managing web services with the Apache web server"
+					class="clickable-skill">Apache</a>
+				<a href="#nginx" data-exp="6 Years"
+					data-desc="Significant experience with managing web services with the nginx web server"
+					class="clickable-skill">nginx</a>
+				<a href="#tomcat" data-exp="3 Years"
+					data-desc="Significant experience with managing java web services with the tomcat servlet container"
+					class="clickable-skill">Tomcat</a>
+			</span>
+			<br />
+			<br />
+			<span class="skill-category">Network</span>
+			<br />
+			<span class="skill-details">
+				<a href="#postfix" data-exp="2 Years"
+					data-desc="Significant experience with managing mail infrastructure with Postfix, Dovecot, OpenDKIM, Amavis, Spamassassin, ClamAV, etc."
+					class="clickable-skill">Postfix</a>
+				<a href="#dovecot" data-exp="2 Years"
+					data-desc="Significant experience with managing mail infrastructure with Postfix, Dovecot, OpenDKIM, Amavis, Spamassassin, ClamAV, etc."
+					class="clickable-skill">Dovecot</a>
+				<a href="#bind" data-exp="4 Years"
+					data-desc="Good experience with managing DNS infrastructure with BIND"
+					class="clickable-skill">BIND</a>
+				<a href="#bind" data-exp="1 Year"
+					data-desc="Some experience with managing DNS infrastructure with PowerDNS"
+					class="clickable-skill">PowerDNS</a>
+				<a href="#vpn" data-exp="2 Years"
+					data-desc="Good experience with setting up and managing OpenVPN servers"
+					class="clickable-skill">OpenVPN</a>
+			</span>
+			<br />
+			<br />
+			<span class="skill-category">Open Sourced</span>
+			<br />
+			<span class="skill-details">
+				<a href="https://github.com/loanstreet/deploy-scripts" data-exp="Open Sourced"
+					class="clickable-skill">Deploy Scripts</a>&nbsp;
+				<a href="https://github.com/masalachai/epp-rtk-java-extensions" data-exp="Open Sourced"
+					class="clickable-skill">EPP-RTK Extensions</a>&nbsp;
+				<a href="https://github.com/masalachai/epp-rtk-java-extras" data-exp="Open Sourced"
+					class="clickable-skill">EPP-RTK Extras</a>
+			</span>
+		</div>
+	</section>
+	<section id="personal">
+		<div class="work-exp centered">
+			<span class="work"><a href="#loanstreet" class="clickable-skill">@ Finology (formerly Loanstreet) Sdn Bhd
+					(Nov 2014 - Present)</a></span><br />
+			<span class="work"><a href="#neosoft" class="clickable-skill">@ Neosoft Technologies (Aug 2005 - Nov
+					2014)</a></span><br />
+			<span class="work"><a href="#dolphin" class="clickable-skill">@ Dolphin Engineers and Contractors (Jan 2006
+					- Dec 2008)</a></span><br />
+			<span class="work"><a href="#maxima" class="clickable-skill">@ Maxima FRP Product (Jan 2012 - Mar
+					2012)</a></span><br />
+		</div>
+	</section>
+	<section id="projects">
+		<p id="skill-title">All Projects</p>
+		<ul class="skills" id="project-list">
+			<li
+				class="project php java cs fs rest xslt mssql html css javascript neosoft linux tomcat apache git gitlab-ci">
+				<p class="project-details"><span class="project-title prominent">DForDomains 2</span><br />
+					<span class="project-skills">PHP Java C# F# REST XSLT MSSQL HTML CSS JavaScript</span></p>
+				<p class="descr">Web application for domain registrations. Running at http://dfordomains.com.</p>
+			</li>
+			<li class="project java cs xml soap mssql html css javascript neosoft tomcat svn bsd">
+				<p class="project-details"><span class="project-title prominent">DForDomains</span><br />
+					<span class="project-skills">Java C# XML(SOAP) MSSQL HTML CSS JavaScript</span></p>
+				<p class="descr">Web application for domain registrations. Ran for 7+ years.</p>
+			</li>
+			<li class="project java xml neosoft tomcat">
+				<p class="project-details"><span class="project-title prominent">Oman Domains</span><br />
+					<span class="project-skills">Java XML</span></p>
+				<p class="descr">Back-end EPP software to manage domain registrations with the .om registry</p>
+			</li>
+			<li class="project java xml git epprtk open-source">
+				<p class="project-details"><span class="project-title prominent">EPP RTK Extensions</span><br />
+					<span class="project-skills">Java XML</span></p>
+				<p class="descr">Domain Registrar extensions for the EPP RTK library to allow a wider range of registry
+					transactions. <a class="dark" href="https://github.com/masalachai/epp-rtk-java-extensions">Released
+						as open-source</a>.</p>
+			</li>
+			<li class="project java xml git epprtk open-source">
+				<p class="project-details"><span class="project-title prominent">EPP RTK Extras</span><br />
+					<span class="project-skills">Java XML</span></p>
+				<p class="descr">Extensions and utility functions for the EPP RTK library. <a class="dark"
+						href="https://github.com/masalachai/epp-rtk-java-extras">Released as open-source</a>.</p>
+			</li>
+			<li class="project c opengl neosoft">
+				<p class="project-details"><span class="project-title prominent">Pano Viewer</span><br />
+					<span class="project-skills">C OpenGL</span></p>
+				<p class="descr">For viewing spherical and cylindrical panoramic images. Uses the OpenGL 3D graphics
+					library.</p>
+			</li>
+			<li class="project cc bazar neosoft">
+				<p class="project-details"><span class="project-title prominent">Video Stream Image
+						Detection</span><br />
+					<span class="project-skills">C++ BazAR</span></p>
+				<p class="descr">An application plugin that detects a given image in a video stream in real-time and
+					highlights it.</p>
+			</li>
+			<li class="project cc cs mssql neosoft">
+				<p class="project-details"><span class="project-title prominent">iCapto Browser Plugin</span><br />
+					<span class="project-skills">C++ C# MSSQL</span></p>
+				<p class="descr">Browser plugin to monitor the browsing habits of users.</p>
+			</li>
+			<li class="project cc neosoft">
+				<p class="project-details"><span class="project-title prominent">Argon Client Deployment
+						Services</span><br />
+					<span class="project-skills">C++</span></p>
+				<p class="descr">Deploys Windows operating systems to multiple machines over the network using PXE.</p>
+			</li>
+			<li
+				class="project rails mysql pgsql html css bootstrap javascript ruby rest loanstreet nginx git linux gitlab-ci docker kubernetes">
+				<p class="project-details"><span class="project-title prominent">lonstreet.com.my</span><br />
+					<span class="project-skills">Rails MySQL PostgreSQL JavaScript HTML CSS Bootstrap REST</span></p>
+				<p class="descr">Customer facing website accessible at http://loanstreet.com.my for customers to apply
+					for loan applications and access relevant banking articles.</p>
+			</li>
+			<li
+				class="project keycloak django pgsql html css bootstrap javascript python rest loanstreet nginx git linux gitlab-ci docker kubernetes">
+				<p class="project-details"><span class="project-title prominent">Loanstreet Insurance API</span><br />
+					<span class="project-skills">Docker Kubernetes Python PostgreSQL Keycloak JavaScript HTML CSS
+						Bootstrap REST</span></p>
+				<p class="descr">Comprehensive REST service to enable sales of multiple types of insurance through
+					various channels and from different insurance
+					companies.</p>
+			</li>
+			<li
+				class="project java pgsql html css bootstrap javascript rest aws loanstreet nginx git linux gitlab-ci docker kubernetes spring-boot reactjs">
+				<p class="project-details"><span class="project-title prominent">XpressCover Insurance
+						Engine</span><br />
+					<span class="project-skills">Docker Kubernetes Java PostgreSQL JavaScript HTML CSS Bootstrap REST
+						Spring-Boot ReactJS AWS</span></p>
+				<p class="descr">A full-fledged microservice-driven insurance engine that an insurer can drop in and
+					start selling any kind of
+					insurance like medical, life, travel or any others. Contains a domain and decision modelling engine
+					to make it easy to build any kind of insurance product.
+					Deployed and in production use by multiple insurance companies around the world.</p>
+			</li>
+			<li
+				class="project rails pgsql html css bootstrap javascript ruby rest loanstreet nginx git linux gitlab-ci">
+				<p class="project-details"><span class="project-title prominent">Loanplus CRM</span><br />
+					<span class="project-skills">Rails PostgreSQL JavaScript HTML CSS Bootstrap REST</span></p>
+				<p class="descr">Web CRM application for processing and tracking of loan applications made from various
+					Loanstreet channels.</p>
+			</li>
+			<li class="project rails ionic html css javascript ruby android loanstreet sqlite rest git">
+				<p class="project-details"><span class="project-title prominent">Loanplus Mobile App</span><br />
+					<span class="project-skills">Rails Ionic-Framework JavaScript HTML CSS</span></p>
+				<p class="descr">Mobile application implemented using the Ionic Framework for Android and iOS as a
+					channel for real estate developers to work with Loanstreet.</p>
+			</li>
+			<li class="project docker kubernetes python flask nginx git linux tensorflow gitlab-ci">
+				<p class="project-details"><span class="project-title prominent">Loanstreet Image API</span><br />
+					<span class="project-skills">Tensorflow Python Docker Kubernetes Flask GoogleOCR</span></p>
+				<p class="descr">An API that uses a custom tensorflow model to recognize and read information from
+					identification documents.</p>
+			</li>
+			<li class="project docker kubernetes shell ruby java python php git loanstreet deploy-scripts open-source">
+				<p class="project-details"><span class="project-title prominent">Deploy Scripts</span><br />
+					<span class="project-skills">Shell Script Docker Kubernetes Git Rails Python Java ReactJS</span></p>
+				<p class="descr">A set of capistrano like tools to automate packaging and deployment for various tech
+					stacks (Java, Rails, Django, React JS, etc)
+					over a wide variety of configurations, environments and build systems. Includes easy
+					containerization with docker and kubernetes with minimal configuration.
+					Released as an <a class="dark" href="https://github.com/loanstreet/deploy-scripts">open-source
+						project</a>.</p>
+			</li>
+			<li class="project cs mysql perl xml soap neosoft svn bind">
+				<p class="project-details"><span class="project-title prominent">Free DNS Services</span><br />
+					<span class="project-skills">C# MySQL Perl XML(SOAP) BIND</span></p>
+				<p class="descr">Free DNS services. Integrated with dfordomains.com. In production use for 7+ years.</p>
+			</li>
+			<li class="project cs mssql neosoft svn">
+				<p class="project-details"><span class="project-title prominent">RDE for Domain Registrars</span><br />
+					<span class="project-skills">C# MSSQL</span></p>
+				<p class="descr">Escrow reporting app for dfordomains.com</p>
+			</li>
+			<li class="project php mysql mssql html css javascript neosoft apache">
+				<p class="project-details"><span class="project-title prominent">Farmcontrol</span><br />
+					<span class="project-skills">PHP MySQL MSSQL HTML CSS JavaScript</span></p>
+				<p class="descr">Web application for datacentre inventory management. In production for 8+ years.</p>
+			</li>
+			<li class="project cs xml mssql neosoft">
+				<p class="project-details"><span class="project-title prominent">Farmcontrol Daemon</span><br />
+					<span class="project-skills">C# XML MSSQL</span></p>
+				<p class="descr">Daemon to keep data in the farmcontrol web application updated.</p>
+			</li>
+			<li class="project java oracle html css javascript solaris neosoft bsd">
+				<p class="project-details"><span class="project-title prominent">QTel ADSL Portal</span><br />
+					<span class="project-skills">Java Oracle HTML CSS JavaScript Solaris</span></p>
+				<p class="descr">Customer portal for Qatar Telecom. Execution of the project involved trips to Doha,
+					Qatar.</p>
+			</li>
+			<!--<li class="project java oracle neosoft">
+				<p class="project-details"><span class="project-title prominent">Namore Web Portal</span><br/>
+				<span class="project-skills">Java Oracle</span></p>
+				<p class="descr">Web portal made using the Google Web Toolkit.</p>
+			</li>-->
+			<li class="project java php mssql neosoft">
+				<p class="project-details"><span class="project-title prominent">Video Uploader</span><br />
+					<span class="project-skills">Java PHP MSSQL</span></p>
+				<p class="descr">Multi-platform video uploading desktop application for online video sharing site.</p>
+			</li>
+			<li class="project cs xml xslt javascript neosoft">
+				<p class="project-details"><span class="project-title prominent">Blogprint Web Printer</span><br />
+					<span class="project-skills">C# XML XSLT JavaScript</span></p>
+				<p class="descr">Blog widget that can queue and print blog posts. Works with wordpress, blogspot and
+					typepad.</p>
+			</li>
+			<li class="project cs mssql xml neosoft">
+				<p class="project-details"><span class="project-title prominent">Registry Poller Daemon</span><br />
+					<span class="project-skills">C# MSSQL XML</span></p>
+				<p class="descr">Message polling application for dfordomains.com. In production use for 7 years.</p>
+			</li>
+			<li class="project objective-c sqlite ios neosoft">
+				<p class="project-details"><span class="project-title prominent">Word Reactor</span><br />
+					<span class="project-skills">Objective-C SQLite</span></p>
+				<p class="descr">iPhone application that shows keywords graphically colliding against each other which
+					merge upon shaking the phone.</p>
+			</li>
+			<li class="project objective-c ios neosoft">
+				<p class="project-details"><span class="project-title prominent">Pop-A-Lot</span><br />
+					<span class="project-skills">Objective-C</span></p>
+				<p class="descr">iPhone application for children. Cartoon images are rendered when the phone screen is
+					tapped.</p>
+			</li>
+			<li class="project objective-c ios neosoft">
+				<p class="project-details"><span class="project-title prominent">Russ Brown</span><br />
+					<span class="project-skills">Objective-C</span></p>
+				<p class="descr">An iPhone application for motorcycle club. Displays maps, and related businesses.</p>
+			</li>
+			<li class="project objective-c php ios neosoft">
+				<p class="project-details"><span class="project-title prominent">Free Feedback Report</span><br />
+					<span class="project-skills">Objective-C PHP</span></p>
+				<p class="descr">iPhone application for collecting and selling consumer feedback about products and
+					services.</p>
+			</li>
+			<li class="project objective-c ios neosoft">
+				<p class="project-details"><span class="project-title prominent">EDO</span><br />
+					<span class="project-skills">Objective-C</span></p>
+				<p class="descr">iPhone application to alert the user of promotions run by businesses in any particular
+					area.</p>
+			</li>
+			<li class="project objective-c perl ios neosoft apache">
+				<p class="project-details"><span class="project-title prominent">Okey Mobile Game</span><br />
+					<span class="project-skills">Objective-C Perl</span></p>
+				<p class="descr">Maintenance of and feature addition to a game server and iPhone client for an online
+					game for mobile phones.</p>
+			</li>
+			<li class="project php javascript neosoft apache linux">
+				<p class="project-details"><span class="project-title prominent">Plugins for HostBill</span><br />
+					<span class="project-skills">PHP Javascript</span></p>
+				<p class="descr">Custom plugins for the hostbill hosting and data centre management software.</p>
+			</li>
+			<li class="project php cs perl ruby python bash neosoft linux bsd">
+				<p class="project-details"><span class="project-title prominent">Miscellaneous utility and monitoring
+						scripts</span><br />
+					<span class="project-skills">C# Perl PHP Ruby Python Bash</span></p>
+				<p class="descr">Reliable and tested scripts and programmes for automation, data migration and
+					management.</p>
+			</li>
+			<li class="project c cs java php dolphin flutter">
+				<p class="project-details"><span class="project-title prominent">Duct Sizer</span><br />
+					<span class="project-skills">C C# Dart(Flutter) Java PHP</span></p>
+				<p class="descr">HVAC duct size calculator. In production use for 6+ years. A mobile version written
+					with Flutter was also released.</p>
+			</li>
+			<li class="project javascript php html css mongo bootstrap maxima">
+				<p class="project-details"><span class="project-title prominent">FRP Calculator</span><br />
+					<span class="project-skills">JavaScript PHP HTML CSS MongoDB Bootstrap</span></p>
+				<p class="descr">Quote calculation application for fibre reinforced plastic tanks, scrubbers and
+					centrifugal
+					fans.</p>
+			</li>
+			<li class="project linux bsd neosoft loanstreet apache nginx">
+				<p class="project-details"><span class="project-title prominent">Setup and Management of
+						Linux/BSD/Windows Servers</span><br />
+					<span class="project-skills">Linux BSD Apache Nginx IIS</span></p>
+				<p class="descr">Deployment and administration of Unix-like operating systems and associated services
+					for websites and web applications</p>
+			</li>
+			<li class="project linux bsd neosoft bind postfix dovecot vpn loanstreet">
+				<p class="project-details"><span class="project-title prominent">Advanced Network Setup</span><br />
+					<span class="project-skills">Postfix, Dovecot (IMAP), SpamAssassin, OpenDKIM, BIND, PowerDNS,
+						OpenVPN</span></p>
+				<p class="descr">Setting up of small networks and advanced configuration of network services for email,
+					DNS, VPNs, distributed compiling, etc.</p>
+			</li>
+			<li class="project html css neosoft loanstreet maxima dolphin">
+				<p class="project-details"><span class="project-title prominent">General Web Design</span><br />
+					<span class="project-skills">HTML CSS</span></p>
+				<p class="descr">Designed websites employing up to date web standards.</p>
+			</li>
+			<li style="border:none;"></li>
+		</ul>
+	</section>
+</body>
+
+</html>

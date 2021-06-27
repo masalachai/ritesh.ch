@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  default:
+    image: ritesh-ch:latest
+    container_name: ritesh_ch
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 15000:8080
+    env_file:
+      - ./deploy/env.sh

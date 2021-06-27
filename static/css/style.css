@@ -1,0 +1,423 @@
+@keyframes opacity-increase {
+	0% {
+		opacity: 0.1;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes opacity-decrease {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.1;
+	}
+}
+
+a.clickable-skill {
+	padding-right: 5px;
+}
+
+span.project-skills {
+	font-size: 0.9em;
+	font-style: italic;
+}
+
+button.btn {
+	border: none;
+	background-color: red;
+	color: #f9f9f9;
+	font-size: 1.1em;
+}
+
+.parallax {
+	perspective: 1px;
+	-webkit-perspective: 1px;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.parallax-layer {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.parallax-main {
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	background: url('../images/background.webp');
+}
+
+section#intro {
+	background: url('../images/background.webp');
+	bottom: 0;
+	width: 100%;
+	height: 100vh;
+}
+
+section#personal {
+	background: #555555;
+	padding: 30px 0;
+}
+
+section#projects {
+	padding: 50px 0;
+	color: #555555;
+	height: 100vh;
+}
+
+section#contact {
+	background: #555555;
+	padding-top: 50px;
+	display: none;
+	/*padding-bottom: 13px;*/
+	height: 100vh;
+}
+
+ul#project-list {
+	margin: 0 auto;
+	max-width: 65%;
+}
+
+span.project-title {
+	text-transform: uppercase;
+	color: red;
+}
+
+div.centered {
+	text-align: center;
+}
+
+li.project {
+	float: left;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+p.project-details {
+	text-align:right;
+	width: 35%;
+	float: left;
+	padding-right: 10px;
+}
+
+p.descr {
+	text-align: left;
+	max-width: 62%;
+	float: left;
+}
+
+div.message-block {
+	display: inline-block;
+	margin: 0 auto;
+}
+
+.contact-field {
+	width: 100%;
+	padding: 10px;
+}
+
+textarea#message {
+	height: 150px;
+	margin: 8 0;
+}
+
+button#send-message {
+	padding: 5 15;
+	margin-top: 8;
+	float: left;
+}
+
+.parallax-back {
+	bottom: 0;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "Lato", Raleway, Arial;
+	color: #f9f9f9;
+	font-display: swap;
+}
+
+a {
+	text-decoration: none;
+	color: #f9f9f9;
+}
+
+a.dark {
+	text-decoration: none;
+	color: red;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+section#menu li {
+	display: inline-block;
+	text-align: center;
+	width: 32%;
+	padding: 50px 0;
+}
+
+header {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	right: 0;
+	font-size: 2em;
+	text-align: center;
+	background: #333333;
+}
+
+header h2 {
+	padding: 6 0 0 5;
+}
+
+span.name-header {
+	margin-right: 50px;
+}
+
+.site-name {
+	color: #f0f0f0;
+	font-family: "Pinyon Script";
+	font-size: 2.3em;
+	font-weight: 100;
+	padding-left: 2%;
+}
+
+.site-name .contact {
+	font-size: 0.8em;
+}
+
+.contact i {
+	padding: 0 12px;
+	color: #f9f9f9;
+}
+
+.parallax-main {
+	padding: 80vh 0;
+	font-size: 1.5em;
+}
+
+.description {
+	background: #fdfdfd;
+	margin-top:-35vh;
+	float:left;
+	width:100%;
+}
+.description p {
+	display: block;
+	margin: 0 auto;
+	max-width: 80%;
+	position: relative;
+}
+
+.intro {
+	display:block;
+	margin:0 auto;
+	width:80%;
+	padding:20 0 20 0;
+}
+
+.intro-img {
+	float:right;
+	width:330px;
+}
+
+footer {
+	position:relative;
+	bottom:0;
+	width:100%;
+	background:#fdfdfd;
+}
+
+div.bottom-container {
+	width: 100%;
+	float:left;
+}
+
+div#pic-container {
+	min-width: 50%;
+	right: 50%;
+	float: left;
+	top: 6%;
+	padding: 200px 0;
+	visibility: visible;
+}
+
+#keywords {
+	/*position: absolute;*/
+	min-width: 50%;
+	float: right;
+	height: 35%;
+	padding: 100px 0;
+	left: 50%;
+	top: 6%;
+	font-size: 1.1em;
+}
+
+span#skill-exp {
+	color: #f9f9f9;
+	float: right;
+	text-align: right;
+	padding-right: 20px;
+}
+
+#skill-title {
+	text-align: center;
+	color: red;
+	padding-bottom: 40px;
+	font-size: 1.4em;
+}
+
+.skill-desc {
+	text-align: center;
+	padding-bottom: 10px;
+	font-size: 1em;
+	max-width: 40%;
+	padding-top: 10px;
+	color: #333333;
+	margin: 0 auto;
+}
+
+span.skill-highlight {
+	font-size: 2em;
+}
+
+span.skill-category {
+	text-transform: uppercase;
+	/*color: #784cab;*/
+	color: red;
+	font-weight: bold;
+}
+
+span.skill-details {
+	color: #a0a0a0;
+}
+
+ul.skills, ul.employment, ul.personal {
+	margin: 50px 0;
+	text-align: center;
+}
+
+div#projects li {
+	margin: 30 0;
+	display: none;
+}
+
+span.single-font {
+	font-family:"Pinyon Script";
+	font-size: 2em;
+}
+
+section#menu {
+	background: #f3f3f3;
+}
+
+section#menu a:hover {
+	color: #EE0E9C;
+}
+
+section.sub-section {
+	padding: 5 10;
+	background: #ffffff;
+}
+
+ul.personal {
+	background: #a0a0a0;
+	padding: 80 0;
+}
+
+section.sub-section.last {
+	margin-bottom: 0;
+}
+
+.dim {
+	animation: opacity-decrease 0.3s linear 1 normal forwards running;
+}
+
+.experience {
+	position: fixed;
+	font-size: 0.45em;
+	z-index: 0;
+	padding-left: 6px;
+	float:left;
+	text-align: center;
+}
+
+a.enlarge {
+	font-size: 3em;
+}
+
+@media only screen and (max-width: 768px) {
+	section#projects {
+		padding: 84px 0;
+	}
+
+	span.name-header {
+		margin-right: 0px;
+		width: 100%;
+		float: left;
+	}
+
+	div#keywords {
+		/*display: none;
+		left: 15%;*/
+		float: none;
+		text-align: center;
+	}
+
+	p.descr {
+		width: 100%;
+		float: none;
+		text-align: center;
+		max-width: none;
+	}
+
+	p.project-details {
+		width: 100%;
+		float: none;
+		max-width: none;
+		padding-right: 0;
+		text-align: center;
+		padding-bottom: 5px;
+	}
+
+	.skill-desc {
+		text-align: center;
+		padding-bottom: 10px;
+		font-size: 0.9em;
+		max-width: 85%;
+		padding-top: 10px;
+		color: #333333;
+		margin: 0 auto;
+	}
+
+	.contact i {
+		padding: 0 4px;
+	}
+
+	div#pic-container {
+		visibility: hidden;
+		padding: 0;
+	}
+}
+
+div.jqcloud a:hover {
+	color: #EE0E9C;
+}
