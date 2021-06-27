@@ -12,7 +12,12 @@ steps:
     volumes:
       - name: ssh
         path: /root/.ssh
+      - name: target
+        path: /root/.cargo-target
+      - name: cache
+        path: /tmp/cargo
     commands:
+      - export CARGO_HOME=/tmp/cargo
       - sh deploy/deploy.sh production
     when:
       branch: master
@@ -21,4 +26,10 @@ volumes:
   - name: ssh
     host:
       path: /root/.ssh
+  - name: target
+    host:
+      path: /var/drone/cache/ritesh-ch
+  - name: cache
+    host:
+      path: /var/drone/cache/cargo
 ...
