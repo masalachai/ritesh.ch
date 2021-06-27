@@ -7,6 +7,8 @@ use serde_json::json;
 use serde::{Serialize, Deserialize};
 use actix_files as fs;
 use recaptcha;
+use lettre::transport::smtp::authentication::Credentials;
+use lettre::{Message, SmtpTransport, Transport};
 
 async fn favicon() -> Result<fs::NamedFile> {
     Ok(fs::NamedFile::open("./static/icons/favicon.ico")?)
@@ -35,6 +37,11 @@ struct ContactResponse {
 async fn contact(req: HttpRequest, form: web::Form<ContactForm>) -> Result<HttpResponse, Error> {
     println!("{:?}", form);
     let captcha_secret = env::var("CAPTCHA_SECRET").unwrap();
+    let smtp_host = env::var("SMTP_HOST").unwrap();
+    let smtp_username = env::var("SMTP_USERNAME").unwrap();
+    let smtp_password = env::var("SMTP_PASSWORD").unwrap();
+    let smtp_recipient = env::var("SMTP_RECIPIENT").unwrap();
+    let smtp_recipient_name = env::var("SMTP_RECIPIENT_NAME").unwrap();
 
     let connection_info = req.connection_info();
 
@@ -47,12 +54,35 @@ async fn contact(req: HttpRequest, form: web::Form<ContactForm>) -> Result<HttpR
     let response = recaptcha::verify(&captcha_secret, &form.g_recaptcha_response, Some(&ip_addr)).await;
 
     if response.is_ok() {
-        Ok(HttpResponse::Ok().json(
-            ContactResponse {
-                status: 200,
-                message: String::from("Thanks for contacting me :)")
-            }
-        ))
+        let email = Message::builder()
+            .from(form.sender_email.parse().unwrap())
+            .reply_to(form.sender_email.parse().unwrap())
+            .to(smtp_recipient.parse().unwrap())
+            .subject("Message from the CV website")
+            .body(form.message)
+            .unwrap();
+
+        let creds = Credentials::new(smtp_username, smtp_password);
+
+        let mailer = SmtpTransport::starttls_relay(smtp_host)
+            .unwrap()
+            .credentials(creds)
+            .build();
+
+        match mailer.send(&email) {
+            Ok(_) => Ok(HttpResponse::Ok().json(
+                        ContactResponse {
+                            status: 200,
+                            message: String::from("Thanks for contacting me :)")
+                        }
+                    )),
+            Err(e) => Ok(HttpResponse::Ok().json(
+                        ContactResponse {
+                            status: 500,
+                            message: String::from("Oops! Something went wrong when sending the email")
+                        }
+                    )),
+        }
     } else {
         Ok(HttpResponse::Ok().json(
             ContactResponse {
