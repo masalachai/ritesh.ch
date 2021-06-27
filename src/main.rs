@@ -41,7 +41,7 @@ async fn contact(req: HttpRequest, form: web::Form<ContactForm>) -> Result<HttpR
     let smtp_username = env::var("SMTP_USERNAME").unwrap();
     let smtp_password = env::var("SMTP_PASSWORD").unwrap();
     let smtp_recipient = env::var("SMTP_RECIPIENT").unwrap();
-    let smtp_recipient_name = env::var("SMTP_RECIPIENT_NAME").unwrap();
+    //let smtp_recipient_name = env::var("SMTP_RECIPIENT_NAME").unwrap();
 
     let connection_info = req.connection_info();
 
@@ -59,12 +59,12 @@ async fn contact(req: HttpRequest, form: web::Form<ContactForm>) -> Result<HttpR
             .reply_to(form.sender_email.parse().unwrap())
             .to(smtp_recipient.parse().unwrap())
             .subject("Message from the CV website")
-            .body(form.message)
+            .body(String::from(&form.message))
             .unwrap();
 
         let creds = Credentials::new(smtp_username, smtp_password);
 
-        let mailer = SmtpTransport::starttls_relay(smtp_host)
+        let mailer = SmtpTransport::starttls_relay(&smtp_host)
             .unwrap()
             .credentials(creds)
             .build();
@@ -76,7 +76,7 @@ async fn contact(req: HttpRequest, form: web::Form<ContactForm>) -> Result<HttpR
                             message: String::from("Thanks for contacting me :)")
                         }
                     )),
-            Err(e) => Ok(HttpResponse::Ok().json(
+            Err(_e) => Ok(HttpResponse::Ok().json(
                         ContactResponse {
                             status: 500,
                             message: String::from("Oops! Something went wrong when sending the email")
