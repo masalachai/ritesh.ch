@@ -23,15 +23,15 @@
 	<link rel="stylesheet" href="static/css/style.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-	<!-- <script src="lib/jqcloud.min.js"></script>
-	<script src='https://www.google.com/recaptcha/api.js'></script> -->
+	<!-- <script src="lib/jqcloud.min.js"></script> -->
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 
 	<script>
 		function sendMessage() {
 			event.preventDefault();
 
 			// $('#send-message').prop('disabled', true);
-			$.post("contact.php", $('#contact-form').serialize(), function (data) {
+			$.post("contact", $('#contact-form').serialize(), function (data) {
 				$('#contact-form').parent().html('<p>' + data.message + '</p>');
 				// $('#send-message').prop('disabled', false);
 			});
@@ -113,9 +113,9 @@
 			<a title="My Projects" id="work-link" href="#projects" class="scroll-link">
 				<i class="fa fa-briefcase" aria-hidden="true"></i>
 			</a>
-			<!-- <a title="Message Me" id="contact-link" href="#contact" class="scroll-link">
+			<a title="Message Me" id="contact-link" href="#contact" class="scroll-link">
 				<i class="fa fa-envelope" aria-hidden="true"></i>
-			</a> -->
+			</a>
 			<a title="Call Me" href="tel:{{phone}}">
 				<i class="fa fa-phone" aria-hidden="true"></i>
 			</a>
@@ -131,7 +131,7 @@
 		<div class="centered">
 			<div class="message-block">
 				<form id="contact-form">
-					<input type="text" name="your-email" id="your-email" class="contact-field"
+					<input type="text" name="sender_email" id="sender_email" class="contact-field"
 						placeholder="Your e-mail address"></input>
 					<textarea name="message" id="message" class="contact-field"
 						placeholder="Send me a message ..."></textarea>
