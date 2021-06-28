@@ -116,6 +116,7 @@ p.descr {
 div.message-block {
 	display: inline-block;
 	margin: 0 auto;
+	padding-top: 40;
 }
 
 .contact-field {
