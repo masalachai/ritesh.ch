@@ -35,7 +35,6 @@ struct ContactResponse {
 }
 
 async fn contact(req: HttpRequest, form: web::Form<ContactForm>) -> Result<HttpResponse, Error> {
-    println!("{:?}", form);
     let captcha_secret = env::var("CAPTCHA_SECRET").unwrap();
     let smtp_host = env::var("SMTP_HOST").unwrap();
     let smtp_username = env::var("SMTP_USER").unwrap();
@@ -49,8 +48,6 @@ async fn contact(req: HttpRequest, form: web::Form<ContactForm>) -> Result<HttpR
     let ip_addr_string = connection_info.realip_remote_addr().unwrap().trim_end_matches(|c: char| c.is_numeric()).trim_end_matches(':');
 
     let ip_addr: IpAddr = ip_addr_string.parse().unwrap();
-
-    println!("IP addr: {:?}", ip_addr);
 
     let response = recaptcha::verify(&captcha_secret, &form.g_recaptcha_response, Some(&ip_addr)).await;
 
