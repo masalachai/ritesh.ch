@@ -11,7 +11,7 @@ use lettre::transport::smtp::authentication::Credentials;
 use lettre::{Message, SmtpTransport, Transport};
 use http::status::StatusCode;
 
-async fn default404() -> Result<fs::NamedFile> {
+async fn default_not_found() -> Result<fs::NamedFile> {
     Ok(fs::NamedFile::open("./static/html/404.html")?.set_content_type(mime::TEXT_HTML).set_status_code(StatusCode::NOT_FOUND))
 }
 
@@ -19,7 +19,7 @@ async fn serve_static(req: HttpRequest) -> Result<fs::NamedFile> {
     match req.path() {
         "/favicon.ico" => Ok(fs::NamedFile::open("./static/icons/favicon.ico")?),
         "/robots.txt" => Ok(fs::NamedFile::open("./static/robots.txt")?),
-        &_ => default404().await
+        &_ => default_not_found().await
     }
 }
 
@@ -139,7 +139,7 @@ async fn main() -> std::io::Result<()> {
             .route("/favicon.ico", web::get().to(serve_static))
             .route("/robots.txt", web::get().to(serve_static))
             .service(fs::Files::new("/static", "./web").prefer_utf8(true))
-            .default_service(web::to(default404))
+            .default_service(web::to(default_not_found))
     })
     .bind(bind)?
     .run()
