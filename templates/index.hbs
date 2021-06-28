@@ -23,7 +23,6 @@
 	<link rel="stylesheet" href="static/css/style.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-	<!-- <script src="lib/jqcloud.min.js"></script> -->
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 
 	<script>
@@ -32,9 +31,18 @@
 
 			// $('#send-message').prop('disabled', true);
 			$.post("contact", $('#contact-form').serialize(), function (data) {
-				$('#contact-form').parent().html('<p>' + data.message + '</p>');
+				var formParent = $('#contact-form').parent();
+				$('#contact-form').remove()
+				formParent.prepend('<p>' + data.message + '</p>');
 				// $('#send-message').prop('disabled', false);
 			});
+		}
+
+		function toggleContactForm() {
+			$('#contact').slideToggle(300);
+			$('body').animate({
+				scrollTop: 0
+			}, 'slow');
 		}
 
 		$(document).ready(function () {
@@ -81,7 +89,7 @@
 				var exp = elem.data('exp');
 				if (exp === undefined)
 					return;
-				//console.log(exp);
+
 				$('#skill-exp').html('<span class="skill-highlight">' + skill + '</span><br/><span class="exp-highlight">' + exp + '</span>');
 			};
 
@@ -92,10 +100,7 @@
 			});
 
 			$('#contact-link').click(function () {
-				$('#contact').slideToggle(300);
-				$('body').animate({
-					scrollTop: 0
-				}, 'slow');
+				toggleContactForm();
 			});
 		});
 	</script>
@@ -138,6 +143,7 @@
 					<div class="g-recaptcha" data-sitekey="{{captcha_sitekey}}"></div>
 					<button class="btn btn-primary" id="send-message" onClick="javascript:sendMessage();">Send</button>
 				</form>
+				<button class="btn btn-primary" id="hide-contact-form" onClick="javascript:toggleContactForm();">Hide</button>
 			</div>
 		</div>
 	</section>

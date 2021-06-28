@@ -134,6 +134,13 @@ button#send-message {
 	float: left;
 }
 
+button#hide-contact-form {
+	padding: 5 15;
+	margin-top: 8;
+	float: left;
+	margin-left: 10;
+}
+
 .parallax-back {
 	bottom: 0;
 }
