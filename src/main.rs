@@ -9,9 +9,18 @@ use actix_files as fs;
 use recaptcha;
 use lettre::transport::smtp::authentication::Credentials;
 use lettre::{Message, SmtpTransport, Transport};
+use http::status::StatusCode;
 
-async fn favicon() -> Result<fs::NamedFile> {
-    Ok(fs::NamedFile::open("./static/icons/favicon.ico")?)
+async fn default404() -> Result<fs::NamedFile> {
+    Ok(fs::NamedFile::open("./static/html/404.html")?.set_content_type(mime::TEXT_HTML).set_status_code(StatusCode::NOT_FOUND))
+}
+
+async fn serve_static(req: HttpRequest) -> Result<fs::NamedFile> {
+    match req.path() {
+        "/favicon.ico" => Ok(fs::NamedFile::open("./static/icons/favicon.ico")?),
+        "/robots.txt" => Ok(fs::NamedFile::open("./static/robots.txt")?),
+        &_ => default404().await
+    }
 }
 
 async fn pdf(req: HttpRequest) -> Result<fs::NamedFile> {
@@ -127,8 +136,10 @@ async fn main() -> std::io::Result<()> {
             .route("/", web::get().to(index))
             .route("/contact", web::post().to(contact))
             .route("/files/{name}.pdf", web::get().to(pdf))
-            .route("/favicon.ico", web::get().to(favicon))
-            .service(fs::Files::new("/static", "./static").prefer_utf8(true))
+            .route("/favicon.ico", web::get().to(serve_static))
+            .route("/robots.txt", web::get().to(serve_static))
+            .service(fs::Files::new("/static", "./web").prefer_utf8(true))
+            .default_service(web::to(default404))
     })
     .bind(bind)?
     .run()

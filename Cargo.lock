@@ -1804,6 +1804,7 @@ dependencies = [
  "actix-web",
  "env_logger",
  "handlebars",
+ "http",
  "lettre",
  "mime",
  "recaptcha",
