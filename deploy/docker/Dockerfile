@@ -13,8 +13,6 @@ WORKDIR $APP_HOME
 
 ADD . $APP_HOME
 
-RUN mv deploy/static ./ && mv deploy/templates ./ && mv deploy/web ./
-
 EXPOSE 8080
 
 CMD ["bin/ritesh-ch"]

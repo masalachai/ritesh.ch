@@ -6,5 +6,6 @@ DEPLOYMENT_SERVER_USER=ritesh
 RESTART_COMMAND="sh deploy/run.sh restart"
 BUILD=cargo
 FORMAT=actix-web
+FORMAT_INCLUDE="static templates web"
 LINKED_FILES=""
-LINKED_DIRS="logs"
+LINKED_DIRS=""
