@@ -72,3 +72,5 @@ A collection of useful features for the EPP RTK Java library to make it easier t
 * BIND
 * PowerDNS
 * OpenVPN
+
+=> gemini://ritesh.ch/resume.pdf        Downloadable CV
