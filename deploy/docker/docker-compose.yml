@@ -10,5 +10,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - 15000:8080
+      - 1965:1965
     env_file:
       - ./deploy/env.sh
