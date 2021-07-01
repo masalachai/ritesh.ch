@@ -73,4 +73,10 @@ A collection of useful features for the EPP RTK Java library to make it easier t
 * PowerDNS
 * OpenVPN
 
+## Contact
+
+=> https://ritesh.ch/cv/                   Contact form on my WWW website
+=> https://github.com/masalachai           My Github account for mirrors
+Email: my-first-name at my-last-name dot com
+
 => gemini://ritesh.ch/resume.pdf        Downloadable CV
