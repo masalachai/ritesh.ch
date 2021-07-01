@@ -19,7 +19,7 @@ A collection of shell scripts to automatically package and deploy software to a 
 
 => https://github.com/masalachai/epp-rtk-java-extensions       EPP RTK Java Extensions
 
-A collection of EPP (Extensible Provisioning Protocol used by domain registries) Extenstions for the EPP RTK Java library which is used by Domain Registrars to register and manage domains.
+A collection of EPP (Extensible Provisioning Protocol used by domain registries) Extensions for the EPP RTK Java library which is used by Domain Registrars to register and manage domains.
 
 => https://github.com/masalachai/epp-rtk-java-extras           EPP RTK Java extras
 
