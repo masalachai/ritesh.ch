@@ -1,4 +1,5 @@
 /target
 /deploy/.build
 **/env.sh
-.certificates
+/.certificates
+/cert

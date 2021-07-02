@@ -10,5 +10,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - 15000:8080
+      - 1965:1965
     env_file:
       - ./deploy/env.sh
+    volumes:
+      - /etc/letsencrypt/live/ritesh.ch/cert.pem:/app/cert/cert.pem
+      - /etc/letsencrypt/live/ritesh.ch/privkey.pem:/app/cert/key.pem

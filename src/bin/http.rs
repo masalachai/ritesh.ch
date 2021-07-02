@@ -122,12 +122,12 @@ async fn index() -> Result<HttpResponse, Error> {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    env_logger::init();
+
     let bind = match env::var("SERVICE_PORT") {
         Ok(port) => format!("0.0.0.0:{}", port),
         Err(_) => String::from("0.0.0.0:8080")
     };
-
-    env_logger::init();
 
     HttpServer::new(|| {
         App::new()
