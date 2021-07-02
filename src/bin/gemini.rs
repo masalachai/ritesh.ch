@@ -39,7 +39,7 @@ fn gemini_index(_: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
 }
 
 #[tokio::main]
-async fn main() {
+async fn main() -> anyhow::Result<(), anyhow::Error> {
     env_logger::init();
 
     let gemini_port = match env::var("GEMINI_PORT") {
@@ -47,16 +47,10 @@ async fn main() {
         Err(_) => GEMINI_PORT
     };
 
-    let _gemini_server = match Server::bind(("0.0.0.0", gemini_port))
+    Server::bind(("0.0.0.0", gemini_port))
         .add_route("/", gemini_index)
         .add_route("/index.gmi", gemini_index)
         .add_route("/resume.pdf", serve_pdf)
         .serve()
-        .await {
-            Ok(_) => Ok(()),
-            Err(e) => {
-                println!("Error: {}", e.to_string());
-                Err(e.to_string())
-            }
-    };
+        .await
 }
