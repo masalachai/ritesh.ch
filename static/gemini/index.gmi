@@ -13,15 +13,15 @@ In addition to being a productive software engineer, I also have significant exp
 
 ## Open-Sourced Projects
 
-=> https://github.com/masalachai/deploy-scripts                Deploy Scripts
+=> https://github.com/masalachai/deploy-scripts                Deploy Scripts [WWW]
 
 A collection of shell scripts to automatically package and deploy software to a variety of targets like servers, kubernetes or aws clusters, docker hosts, etc. It works similarly to capistrano but has fewer dependencies and supports several stacks out-of-the-box like spring boot, ruby on rails, django, actix-web, etc.
 
-=> https://github.com/masalachai/epp-rtk-java-extensions       EPP RTK Java Extensions
+=> https://github.com/masalachai/epp-rtk-java-extensions       EPP RTK Java Extensions [WWW]
 
 A collection of EPP (Extensible Provisioning Protocol used by domain registries) Extensions for the EPP RTK Java library which is used by Domain Registrars to register and manage domains.
 
-=> https://github.com/masalachai/epp-rtk-java-extras           EPP RTK Java extras
+=> https://github.com/masalachai/epp-rtk-java-extras           EPP RTK Java extras [WWW]
 
 A collection of useful features for the EPP RTK Java library to make it easier to use with multiple domain registrar backends on a single deployment.
 
@@ -75,8 +75,8 @@ A collection of useful features for the EPP RTK Java library to make it easier t
 
 ## Contact
 
-=> https://ritesh.ch/cv/                   Contact form on my WWW website
-=> https://github.com/masalachai           My Github account for mirrors
+=> https://ritesh.ch/cv/                   Contact form on my WWW website [WWW]
+=> https://github.com/masalachai           My Github account for mirrors [WWW]
 Email: my-first-name at my-last-name dot com
 
-=> gemini://ritesh.ch/resume.pdf        Downloadable CV
+=> gemini://ritesh.ch/resume.pdf        Downloadable CV [PDF]
