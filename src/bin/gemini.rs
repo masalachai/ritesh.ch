@@ -1,4 +1,4 @@
-use std::env;
+use std::{env, time::Duration};
 
 use handlebars::Handlebars;
 use serde_json::json;
@@ -51,6 +51,7 @@ async fn main() -> anyhow::Result<(), anyhow::Error> {
         .add_route("/", gemini_index)
         .add_route("/index.gmi", gemini_index)
         .add_route("/resume.pdf", serve_pdf)
+        .set_timeout(Duration::from_secs(10))
         .serve()
         .await
 }
