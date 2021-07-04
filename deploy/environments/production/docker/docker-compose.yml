@@ -9,8 +9,8 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 15000:8080
-      - 1965:1965
+      - "127.0.0.1:15000:8080"
+      - "1965:1965"
     env_file:
       - ./deploy/env.sh
     volumes:
