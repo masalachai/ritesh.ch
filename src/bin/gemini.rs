@@ -18,21 +18,27 @@ fn serve_pdf(_: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
     .boxed()
 }
 
-fn gemini_index(_: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
+fn gemini_index(request: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
+
+
     async move {
-        let json = &json!({
-            "name": env::var("MY_NAME").unwrap(),
-        });
+        if let 0 = request.trailing_segments().len() {
+            let json = &json!({
+                "name": env::var("MY_NAME").unwrap(),
+            });
 
-        let mut hb = Handlebars::new();
+            let mut hb = Handlebars::new();
 
-        hb.register_template_file("index", "./templates/index.gmi.hbs").unwrap_or_else (|err| {
-            anyhow!("{}", err);
-        });
+            hb.register_template_file("index", "./templates/index.gmi.hbs").unwrap_or_else (|err| {
+                anyhow!("{}", err);
+            });
 
-        match hb.render("index", json) {
-            Ok(contents) => Ok(Response::success(&GEMINI_MIME, Body::from(contents))),
-            Err(err) => Err(anyhow!("{}", err))
+            match hb.render("index", json) {
+                Ok(contents) => Ok(Response::success(&GEMINI_MIME, Body::from(contents))),
+                Err(err) => Err(anyhow!("{}", err))
+            }
+        } else {
+            Ok(Response::not_found())
         }
     }
     .boxed()
