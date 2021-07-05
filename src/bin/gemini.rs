@@ -18,7 +18,14 @@ fn serve_pdf(_: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
     .boxed()
 }
 
-fn gemini_index(request: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
+fn favicon(_: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
+    async move {
+        Ok(Response::success(&GEMINI_MIME, Body::from("\u{1F496}\r\n")))
+    }
+    .boxed()
+}
+
+fn index(request: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
 
 
     async move {
@@ -54,8 +61,9 @@ async fn main() -> anyhow::Result<(), anyhow::Error> {
     };
 
     Server::bind(("0.0.0.0", gemini_port))
-        .add_route("/", gemini_index)
-        .add_route("/index.gmi", gemini_index)
+        .add_route("/", index)
+        .add_route("/index.gmi", index)
+        .add_route("/favicon.txt", favicon)
         .add_route("/resume.pdf", serve_pdf)
         .set_timeout(Duration::from_secs(10))
         .serve()
