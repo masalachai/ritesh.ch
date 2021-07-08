@@ -1,4 +1,4 @@
-FROM rust:1.53.0-slim
+FROM debian:10-slim
 
 ARG APP_ENV
 ENV APP_ENV ${APP_ENV}
