@@ -25,6 +25,15 @@ fn favicon(_: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
     .boxed()
 }
 
+fn robots(_: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
+    async move {
+        let response = northstar::util::serve_file("./static/robots.txt", &mime::TEXT_PLAIN).await?;
+
+        Ok(response)
+    }
+    .boxed()
+}
+
 fn index(request: Request) -> BoxFuture<'static, anyhow::Result<Response>> {
 
 
@@ -64,6 +73,7 @@ async fn main() -> anyhow::Result<(), anyhow::Error> {
         .add_route("/", index)
         .add_route("/index.gmi", index)
         .add_route("/favicon.txt", favicon)
+        .add_route("/robots.txt", robots)
         .add_route("/resume.pdf", serve_pdf)
         .set_timeout(Duration::from_secs(10))
         .serve()
