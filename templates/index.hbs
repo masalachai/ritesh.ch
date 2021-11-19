@@ -90,8 +90,12 @@
 				var filter = elem.attr('href').replace("#", "");
 				var skill = elem.html();
 				var exp = elem.data('exp');
+				var desc = elem.data('desc');
+
 				if (exp === undefined)
 					return;
+				if (desc !== undefined)
+					exp += "<br/><br/><span>" + desc + "</span>";
 
 				$('#skill-exp').html('<span class="skill-highlight">' + skill + '</span><br/><span class="exp-highlight">' + exp + '</span>');
 			};
@@ -168,10 +172,10 @@
 					data-desc="Comfortable with application development and tools for C and C++ with Linux and Windows APIs"
 					class="clickable-skill">C++</a>
 				<a href="#rust" data-exp="Beginner"
-					data-desc="Hobbyist programmer with rust, and open-sourced a couple of projects under it which can be accessed on <a class='dark' href='https://github.com/masalachai'>GitHub</a>"
+					data-desc="Hobbyist programmer with rust, and open-sourced a couple of projects under it"
 					class="clickable-skill">Rust</a>
 				<a href="#java" data-exp="8 Years"
-					data-desc="Several years of experience building reliable Java applications that have seen long-term production use. Open sourced a couple of java projects which can be accessed on <a class='dark' href='https://github.com/masalachai'>GitHub</a>"
+					data-desc="Several years of experience building reliable Java applications that have seen long-term production use"
 					class="clickable-skill">Java</a>
 				<a href="#cs" data-exp="7 Years"
 					data-desc="Several years of experience building reliable C# applications that have seen long-term production use"
@@ -233,16 +237,16 @@
 			<br />
 			<span class="skill-details">
 				<a href="#docker" data-exp="2 Years"
-					data-desc="Good experience with automating, containerizing and scaling applications with Docker for a wide variety of deployment configuratons and managing docker registries"
+					data-desc="Good experience with automating, containerizing and scaling applications with Docker and managing docker registries"
 					class="clickable-skill">Docker</a>
 				<a href="#kubernetes" data-exp="2 Years"
 					data-desc="Good experience with provisioning, managing and automating deployments to Kubernetes clusters"
 					class="clickable-skill">Kubernetes</a>
 				<a href="#gitlab-ci" data-exp="4 Years"
-					data-desc="Good experience with setting up self-hosted CI/CD infrastructure and deployment pipelines with Drone CI and Gitlab CI. <a class='dark' href='https://ci.ayravat.com/chitlangi/ritesh.ch'>For example, CI/CD for this website</a>"
+					data-desc="Good experience with setting up self-hosted CI/CD infrastructure and deployment pipelines with Drone CI and Gitlab CI."
 					class="clickable-skill">CI/CD</a>
 				<a href="#aws" data-exp="2 Years"
-					data-desc="Good experience with setting up networks (VPCs), VPNs, EC2 auto-scaling, object storage (S3), CDN (Cloudfront), Clusters (ECS and EKS), and several other AWS services"
+					data-desc="Good experience with setting up VPCs, VPNs, auto-scaling, S3, Cloudfront, ECS and EKS, and several other AWS services"
 					class="clickable-skill">AWS</a>
 				<a href="#linux" data-exp="10 Years"
 					data-desc="Extensive experience with developing for Linux and managing Linux infrastructure for web and network services"
@@ -257,7 +261,7 @@
 					data-desc="Good experience with using Keycloak for centralized authentication and authorization services"
 					class="clickable-skill">Keycloak</a>
 				<a href="#git" data-exp="3 Years"
-					data-desc="Extensive experience with using Gitea as a self-hosted repository and issue management solution and automated migration of large numbers of repositories from Github and Gitlab to Gitea"
+					data-desc="Extensive experience with using Gitea and automated migration of large numbers of repositories from Github and Gitlab to Gitea"
 					class="clickable-skill">Gitea</a>
 				<a href="#apache" data-exp="4 Years"
 					data-desc="Significant experience with managing web services with the Apache web server"
@@ -299,15 +303,20 @@
 			<br />
 			<span class="skill-details">
 				<a href="https://github.com/masalachai/epp-client" data-exp="Open Sourced"
+					data-desc="EPP (Extensible Provisioning Protocol) Library for Domain registration and management"
 					class="clickable-skill">Rust EPP Toolkit</a>&nbsp;
 				<a href="https://github.com/loanstreet/deploy-scripts" data-exp="Open Sourced"
+					data-desc="Capistrano-like automated deployments for Rust, Java, Rails, Django, and several other stacks"
 					class="clickable-skill">Deploy Scripts</a>&nbsp;
 				<a href="https://github.com/masalachai/gemini-git-browser" data-exp="Open Sourced"
+					data-desc="Git UI to browse repositories on the Gemini protocol"
 					class="clickable-skill">Gemini Git UI</a>&nbsp;
 				<br/>
 				<a href="https://github.com/masalachai/epp-rtk-java-extensions" data-exp="Open Sourced"
+					data-desc="Some extensions for the EPP RTK Java Library"
 					class="clickable-skill">EPP-RTK Extensions</a>&nbsp;
 				<a href="https://github.com/masalachai/epp-rtk-java-extras" data-exp="Open Sourced"
+					data-desc="Some yseful features for the EPP RTK Java Library"
 					class="clickable-skill">EPP-RTK Extras</a>
 			</span>
 		</div>
