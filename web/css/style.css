@@ -432,6 +432,9 @@ a.enlarge {
 	div#pic-container {
 		visibility: hidden;
 		padding: 0;
+		position: absolute;
+		float: none;
+		z-index: -999;
 	}
 }
 
